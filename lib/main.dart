@@ -1,12 +1,22 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:question_board_mobile/services/webview_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:question_board_mobile/screens/auth/splash/splash_screen.dart';
+import 'package:question_board_mobile/screens/home/home_screen.dart';
+import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   WidgetsBinding.instance;
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthViewModel()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         brightness: Brightness.light,
       ),
-      home: const WebViewScreen(),
+      home: const SplashScreen(),
     );
   }
 }
