@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:question_board_mobile/screens/auth/splash/splash_screen.dart';
 import 'package:question_board_mobile/screens/home/home_screen.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
+import 'package:question_board_mobile/view_models/event/event_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthViewModel()),
+        ChangeNotifierProvider(create: (context) => EventViewModel()),
       ],
       child: const MyApp(),
     ),

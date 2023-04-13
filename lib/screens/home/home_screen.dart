@@ -6,6 +6,7 @@ import 'package:question_board_mobile/core/base/base_state.dart';
 import 'package:question_board_mobile/core/base/base_view.dart';
 import 'package:question_board_mobile/screens/auth/login/login_screen.dart';
 import 'package:question_board_mobile/screens/auth/register/register_screen.dart';
+import 'package:question_board_mobile/style/text_styles.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -46,20 +47,15 @@ class _HomeWidgetState extends BaseState<_HomeWidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             "Soru Tahtası",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyles.title,
           ),
-          const Text(
+          Text(
             "Linkini paylaş ve soruları gör!",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 18,
-            ),
+            style: TextStyles.subTitle,
           ),
           const SizedBox(height: 14),
           const Text(

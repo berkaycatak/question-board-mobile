@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:question_board_mobile/core/base/base_state.dart';
 import 'package:question_board_mobile/core/base/base_view.dart';
 import 'package:question_board_mobile/screens/home/home_screen.dart';
+import 'package:question_board_mobile/style/text_styles.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 import 'package:validators/validators.dart';
 
@@ -32,13 +33,10 @@ class _LoginScreenState extends BaseState<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Giriş Yap",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyles.title,
               ),
               const SizedBox(height: 18),
               Form(
@@ -59,6 +57,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
                     const SizedBox(height: 14),
                     TextFormField(
                       controller: password_controller,
+                      obscureText: true,
                       validator: (val) =>
                           isNull(val!) ? "Lütfen parola girin." : null,
                       decoration: const InputDecoration(
@@ -73,31 +72,29 @@ class _LoginScreenState extends BaseState<LoginScreen> {
               SizedBox(
                 height: 40,
                 width: double.infinity,
-                child: Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black, // This is what you need!
-                    ),
-                    onPressed: () async {
-                      bool validate = formkey.currentState!.validate();
-                      if (validate) {
-                        bool statu = await _authProvider.login(
-                          context,
-                          email: email_controller.text,
-                          password: password_controller.text,
-                        );
-                        if (statu) {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
-                            ),
-                            (Route<dynamic> route) => false,
-                          );
-                        }
-                      }
-                    },
-                    child: const Text("Giriş Yap"),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black, // This is what you need!
                   ),
+                  onPressed: () async {
+                    bool validate = formkey.currentState!.validate();
+                    if (validate) {
+                      bool statu = await _authProvider.login(
+                        context,
+                        email: email_controller.text,
+                        password: password_controller.text,
+                      );
+                      if (statu) {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
+                      }
+                    }
+                  },
+                  child: const Text("Giriş Yap"),
                 ),
               ),
               const SizedBox(height: 18),

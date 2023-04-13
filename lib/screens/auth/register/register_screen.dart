@@ -9,6 +9,7 @@ import 'package:question_board_mobile/core/base/base_state.dart';
 import 'package:question_board_mobile/core/base/base_view.dart';
 import 'package:question_board_mobile/screens/home/home_screen.dart';
 import 'package:question_board_mobile/services/request_services.dart';
+import 'package:question_board_mobile/style/text_styles.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 import 'package:validators/validators.dart';
 
@@ -39,13 +40,10 @@ class _RegisterScreenState extends BaseState<RegisterScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Kayıt Ol",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyles.title,
               ),
               const SizedBox(height: 18),
               Form(
@@ -57,7 +55,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen> {
                     TextFormField(
                       controller: name_controller,
                       validator: (val) =>
-                          isNull(val!) ? "Lütfen parola girin." : null,
+                          isNull(val!) ? "Lütfen isim ve soyisim girin." : null,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'İsim, Soyisim',
@@ -76,6 +74,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen> {
                     const SizedBox(height: 14),
                     TextFormField(
                       controller: password_controller,
+                      obscureText: true,
                       validator: (val) =>
                           isNull(val!) ? "Lütfen parola girin." : null,
                       decoration: const InputDecoration(
@@ -86,6 +85,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen> {
                     const SizedBox(height: 14),
                     TextFormField(
                       controller: password_confirmation_controller,
+                      obscureText: true,
                       validator: (val) =>
                           isNull(val!) ? 'Lütfen parola girin.' : null,
                       decoration: const InputDecoration(
@@ -100,34 +100,32 @@ class _RegisterScreenState extends BaseState<RegisterScreen> {
               SizedBox(
                 height: 40,
                 width: double.infinity,
-                child: Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black, // This is what you need!
-                    ),
-                    onPressed: () async {
-                      bool validate = formkey.currentState!.validate();
-                      if (validate) {
-                        bool statu = await _authProvider.register(
-                          context,
-                          email: email_controller.text,
-                          name: name_controller.text,
-                          password: password_controller.text,
-                          passwordConfirmation:
-                              password_confirmation_controller.text,
-                        );
-                        if (statu) {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
-                            ),
-                            (Route<dynamic> route) => false,
-                          );
-                        }
-                      }
-                    },
-                    child: const Text("Kayıt Ol"),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black, // This is what you need!
                   ),
+                  onPressed: () async {
+                    bool validate = formkey.currentState!.validate();
+                    if (validate) {
+                      bool statu = await _authProvider.register(
+                        context,
+                        email: email_controller.text,
+                        name: name_controller.text,
+                        password: password_controller.text,
+                        passwordConfirmation:
+                            password_confirmation_controller.text,
+                      );
+                      if (statu) {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
+                      }
+                    }
+                  },
+                  child: const Text("Kayıt Ol"),
                 ),
               ),
               const SizedBox(height: 18),
