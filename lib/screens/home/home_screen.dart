@@ -6,6 +6,7 @@ import 'package:question_board_mobile/core/base/base_state.dart';
 import 'package:question_board_mobile/core/base/base_view.dart';
 import 'package:question_board_mobile/screens/auth/login/login_screen.dart';
 import 'package:question_board_mobile/screens/auth/register/register_screen.dart';
+import 'package:question_board_mobile/screens/events/create/event_create_screen.dart';
 import 'package:question_board_mobile/style/text_styles.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 
@@ -66,25 +67,16 @@ class _HomeWidgetState extends BaseState<_HomeWidget> {
             ),
           ),
           const SizedBox(height: 14),
-          if (_authProvider.peopleModel == null) const _AuthButtons()
+          if (_authProvider.peopleModel == null)
+            _authButtons()
+          else
+            _createEventButtons(),
         ],
       ),
     );
   }
-}
 
-class _AuthButtons extends StatefulWidget {
-  const _AuthButtons({
-    super.key,
-  });
-
-  @override
-  State<_AuthButtons> createState() => _AuthButtonsState();
-}
-
-class _AuthButtonsState extends BaseState<_AuthButtons> {
-  @override
-  Widget build(BuildContext context) {
+  Widget _authButtons() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
@@ -123,6 +115,26 @@ class _AuthButtonsState extends BaseState<_AuthButtons> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget _createEventButtons() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.black, // This is what you need!
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const EventCreateScreen(),
+            ),
+          );
+        },
+        child: const Text("Etkinlik Oluştur"),
       ),
     );
   }

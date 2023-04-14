@@ -28,7 +28,9 @@ class _EventListScreenState extends BaseState<EventListScreen> {
         _eventProvider.events(context);
       },
       onPageBuilder: (context) =>
-          _eventProvider.screenStatus == ScreenStatus.LOADING
+          _eventProvider.screenStatus == ScreenStatus.LOADING &&
+                  (_eventProvider.coming_events == null &&
+                      _eventProvider.past_events == null)
               ? loadingWidget()
               : const _EventListView(),
     );

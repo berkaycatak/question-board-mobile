@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Helpers {
   static String getTimeDifference(DateTime dateTime) {
     Duration difference = DateTime.now().difference(dateTime);
@@ -10,5 +12,9 @@ class Helpers {
     } else {
       return 'şimdi';
     }
+  }
+
+  static dateToApiFormat(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
   }
 }

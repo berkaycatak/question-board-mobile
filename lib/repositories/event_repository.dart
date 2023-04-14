@@ -75,4 +75,59 @@ class EventRepository {
       return null;
     }
   }
+
+  Future<EventModel?> create({
+    required BuildContext context,
+    required Map payload,
+  }) async {
+    try {
+      Response? response = await _requestServices.sendRequest(
+        path: "event/create",
+        isToken: true,
+        payload: payload,
+      );
+
+      dynamic responseJson = _requestServices.returnResponse(
+        response!,
+        context,
+      );
+
+      if (responseJson == null) return null;
+
+      EventModel _eventModel;
+      _eventModel = EventModel.fromJson(responseJson["event"]);
+      return _eventModel;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<EventModel?> edit({
+    required BuildContext context,
+    required Map payload,
+    required EventModel eventModel,
+  }) async {
+    try {
+      Response? response = await _requestServices.sendRequest(
+        path: "event/update/${eventModel.id}",
+        isToken: true,
+        payload: payload,
+      );
+
+      dynamic responseJson = _requestServices.returnResponse(
+        response!,
+        context,
+      );
+
+      if (responseJson == null) return null;
+
+      EventModel _eventModel;
+      _eventModel = EventModel.fromJson(responseJson["event"]);
+      return _eventModel;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

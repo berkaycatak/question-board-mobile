@@ -11,7 +11,7 @@ Widget questionListBuilder(BuildContext context, List<Question>? questions) {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      separatorBuilder: (context, index) => const Divider(),
+      separatorBuilder: (context, index) => const SizedBox(height: 10),
       itemCount: questions.length,
       itemBuilder: (context, index) {
         Question item = questions[index];

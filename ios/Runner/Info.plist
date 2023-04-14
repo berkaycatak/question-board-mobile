@@ -5,7 +5,7 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<string>tr</string>
 	<key>CFBundleDisplayName</key>
 	<string>Question Board Mobile</string>
 	<key>CFBundleExecutable</key>

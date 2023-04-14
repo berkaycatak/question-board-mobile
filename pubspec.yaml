@@ -36,6 +36,8 @@ dependencies:
   provider: ^6.0.5
   rxdart: ^0.27.7
   shared_preferences: ^2.1.0
+  syncfusion_flutter_datepicker: ^21.1.39
+  url_launcher: ^6.1.10
   validators: ^3.0.0
 
 dev_dependencies:
