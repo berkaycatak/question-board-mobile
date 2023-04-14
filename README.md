@@ -7,6 +7,8 @@
 Soru Tahtası mobil uygulaması, Google Oyun ve Uygulama Akademisi canlı yayınlarında yayıncıya soru iletilmesi, bu soruların ve etkinliklerin yönetiminin kolaylaştırılması için geliştirilmiştir.
 
 
+### Ekran Görüntüleri
+
 <div>
 <img width="24%" src="https://user-images.githubusercontent.com/34205493/231969925-5da85e60-21ec-4541-bd52-c0cbd7521c07.jpeg">
 
