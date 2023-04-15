@@ -35,6 +35,7 @@ dependencies:
   http: ^0.13.5
   provider: ^6.0.5
   quickalert: ^1.0.1
+  bottom_sheet: ^3.1.2
   rxdart: ^0.27.7
   shared_preferences: ^2.1.0
   syncfusion_flutter_datepicker: ^21.1.39

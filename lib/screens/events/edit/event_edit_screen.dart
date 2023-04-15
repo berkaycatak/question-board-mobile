@@ -206,11 +206,7 @@ class __EventEditViewState extends State<_EventEditView> {
                       eventModel: widget.eventModel,
                     );
                     if (_eventModel != null) {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        RouteNames.event_detail,
-                        arguments: _eventModel,
-                      );
+                      Navigator.of(context).pop();
                     }
                   },
             child: _eventProvider.screenStatus == ScreenStatus.LOADING

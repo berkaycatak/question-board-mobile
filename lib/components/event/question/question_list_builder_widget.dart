@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:question_board_mobile/components/event/question/question_widget.dart';
 import 'package:question_board_mobile/models/QuestionModel.dart';
 
-Widget questionListBuilder(BuildContext context, List<Question>? questions) {
+Widget questionListBuilder(
+    BuildContext context, List<QuestionModel>? questions) {
   if (questions == null) {
     return const Text("Henüz hiç soru eklenmemiş. Hemen sor!");
   } else if (questions.isEmpty) {
@@ -14,8 +15,8 @@ Widget questionListBuilder(BuildContext context, List<Question>? questions) {
       separatorBuilder: (context, index) => const SizedBox(height: 10),
       itemCount: questions.length,
       itemBuilder: (context, index) {
-        Question item = questions[index];
-        return questionWidget(context, item);
+        QuestionModel item = questions[index];
+        return questionWidget(context, question: item);
       },
     );
   }

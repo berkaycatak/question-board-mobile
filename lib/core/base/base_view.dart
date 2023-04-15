@@ -9,11 +9,13 @@ class BaseView<T> extends StatefulWidget {
   final Widget Function(BuildContext context, dynamic args)? onPageBuilder;
   final Function(BuildContext context, dynamic args)? onModelReady;
   final VoidCallback? onDispose;
+  final FloatingActionButton? floatingActionButton;
   const BaseView({
     Key? key,
     this.onPageBuilder,
     this.onModelReady,
     this.onDispose,
+    this.floatingActionButton,
   }) : super(key: key);
 
   @override
@@ -63,6 +65,7 @@ class _BaseViewState extends BaseState<BaseView> {
         backgroundColor: Colors.white,
         appBar: const CustomAppBar(),
         drawer: const CustomDrawer(),
+        floatingActionButton: widget.floatingActionButton,
         body: ListView(
           children: [
             Padding(

@@ -1,7 +1,8 @@
+import 'package:question_board_mobile/models/EventModel.dart';
 import 'package:question_board_mobile/models/PeopleModel.dart';
 import 'package:question_board_mobile/models/VoteModel.dart';
 
-class Question {
+class QuestionModel {
   int? id;
   String? question;
   String? name;
@@ -14,22 +15,25 @@ class Question {
   String? updatedAt;
   PeopleModel? user;
   List<Vote>? votes;
+  EventModel? event;
 
-  Question(
-      {this.id,
-      this.question,
-      this.name,
-      this.eventId,
-      this.createdUserId,
-      this.isAnonim,
-      this.isAnswered,
-      this.isLive,
-      this.createdAt,
-      this.updatedAt,
-      this.user,
-      this.votes});
+  QuestionModel({
+    this.id,
+    this.question,
+    this.name,
+    this.eventId,
+    this.createdUserId,
+    this.isAnonim,
+    this.isAnswered,
+    this.isLive,
+    this.createdAt,
+    this.updatedAt,
+    this.user,
+    this.votes,
+    this.event,
+  });
 
-  Question.fromJson(Map<String, dynamic> json) {
+  QuestionModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     question = json['question'];
     name = json['name'];
@@ -40,13 +44,22 @@ class Question {
     isLive = json['is_live'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    user = json['user'] != null ? new PeopleModel.fromJson(json['user']) : null;
+    user = json['user'] != null
+        ? new PeopleModel.fromJson(
+            json['user'],
+          )
+        : null;
     if (json['votes'] != null) {
       votes = <Vote>[];
       json['votes'].forEach((v) {
         votes!.add(new Vote.fromJson(v));
       });
     }
+    event = json['event'] != null
+        ? new EventModel.fromJson(
+            json['event'],
+          )
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -64,9 +77,15 @@ class Question {
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
+
     if (this.votes != null) {
       data['votes'] = this.votes!.map((v) => v.toJson()).toList();
     }
+
+    if (this.event != null) {
+      data['event'] = this.event!.toJson();
+    }
+
     return data;
   }
 }

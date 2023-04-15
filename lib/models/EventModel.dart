@@ -13,7 +13,7 @@ class EventModel {
   String? createdAt;
   String? updatedAt;
   PeopleModel? creatorUser;
-  List<Question>? questions;
+  List<QuestionModel>? questions;
 
   EventModel({
     this.id,
@@ -45,9 +45,9 @@ class EventModel {
         ? PeopleModel.fromJson(json['creator_user'])
         : null;
     if (json['questions'] != null) {
-      questions = <Question>[];
+      questions = <QuestionModel>[];
       json['questions'].forEach((v) {
-        questions!.add(new Question.fromJson(v));
+        questions!.add(new QuestionModel.fromJson(v));
       });
     }
   }

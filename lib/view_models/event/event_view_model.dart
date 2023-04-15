@@ -205,6 +205,8 @@ class EventViewModel with ChangeNotifier {
         eventModel: eventModel,
       );
 
+      await details(context, eventModel);
+
       notifyListeners();
       changeScreenStatus(ScreenStatus.SUCCESS);
       return _eventModel;
