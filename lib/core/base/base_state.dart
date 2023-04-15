@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 
 abstract class BaseState<T extends StatefulWidget> extends State<T> {
   double get deviceHeight => MediaQuery.of(context).size.height;
   double get deviceWidth => MediaQuery.of(context).size.height;
+  // String? current_route_name  = ModalRoute.of(context)?.settings.name;
 
   // buraya sık kullanılan değerler gelecek.
   // Örn:

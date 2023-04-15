@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:question_board_mobile/screens/events/list/events_list_screen.dart';
 import 'package:question_board_mobile/screens/home/home_screen.dart';
 import 'package:question_board_mobile/style/colors.dart';
+import 'package:question_board_mobile/utils/routes/route_names.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -32,9 +33,7 @@ class CustomDrawer extends StatelessWidget {
             leading: Icon(Icons.people_outline),
             title: const Text('Etkinlikler'),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const EventListScreen(),
-              ));
+              Navigator.pushNamed(context, RouteNames.event_list);
             },
           ),
         ],

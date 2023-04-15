@@ -10,14 +10,14 @@ import 'package:question_board_mobile/screens/events/edit/event_edit_screen.dart
 import 'package:question_board_mobile/style/colors.dart';
 import 'package:question_board_mobile/style/text_styles.dart';
 import 'package:question_board_mobile/utils/enums/screen_status.dart';
+import 'package:question_board_mobile/utils/routes/route_names.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 import 'package:question_board_mobile/view_models/event/event_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:validators/validators.dart';
 
 class EventDetailScreen extends StatefulWidget {
-  final EventModel eventModel;
-  const EventDetailScreen({super.key, required this.eventModel});
+  const EventDetailScreen({super.key});
 
   @override
   State<EventDetailScreen> createState() => _EventDetailScreenState();
@@ -30,13 +30,14 @@ class _EventDetailScreenState extends BaseState<EventDetailScreen> {
 
     return BaseView(
       onModelReady: (context, args) async {
-        await _eventProvider.details(context, widget.eventModel);
+        args = args as EventModel;
+        await _eventProvider.details(context, args);
       },
       onDispose: () {
         _eventProvider.eventDetailModel = null;
       },
       onPageBuilder: (context, args) =>
-          _eventProvider.screenStatus == ScreenStatus.LOADING &&
+          _eventProvider.screenStatus == ScreenStatus.LOADING ||
                   _eventProvider.eventDetailModel == null
               ? loadingWidget()
               : const _EventDetailView(),
@@ -137,29 +138,26 @@ class __EventDetailViewState extends BaseState<_EventDetailView> {
                   print(e);
                 }
               },
-              child: Text("Etkinliğe Katıl"),
+              child: const Text("Etkinliğe Katıl"),
             ),
           ),
         const SizedBox(height: 10),
-        if (model.createdUserId == _authProvider.peopleModel!.id)
-          SizedBox(
-            height: 40,
-            width: double.infinity,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // This is what you need!
+        if (_authProvider.peopleModel != null)
+          if (model.createdUserId == _authProvider.peopleModel!.id)
+            SizedBox(
+              height: 40,
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black, // This is what you need!
+                ),
+                onPressed: () async {
+                  Navigator.pushNamed(context, RouteNames.event_edit,
+                      arguments: model);
+                },
+                child: const Text("Etkinliği Düzenle"),
               ),
-              onPressed: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EventEditScreen(eventModel: model),
-                  ),
-                );
-              },
-              child: Text("Etkinliği Düzenle"),
             ),
-          ),
       ],
     );
   }

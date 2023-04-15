@@ -8,6 +8,7 @@ import 'package:question_board_mobile/models/EventModel.dart';
 import 'package:question_board_mobile/screens/events/detail/event_detail_screen.dart';
 import 'package:question_board_mobile/style/text_styles.dart';
 import 'package:question_board_mobile/utils/enums/screen_status.dart';
+import 'package:question_board_mobile/utils/routes/route_names.dart';
 import 'package:question_board_mobile/view_models/event/event_view_model.dart';
 import 'package:validators/validators.dart';
 
@@ -17,8 +18,7 @@ final TextEditingController description_controller = TextEditingController();
 final TextEditingController adress_controller = TextEditingController();
 
 class EventEditScreen extends StatefulWidget {
-  final EventModel eventModel;
-  const EventEditScreen({super.key, required this.eventModel});
+  const EventEditScreen({super.key});
 
   @override
   State<EventEditScreen> createState() => _EventEditScreenState();
@@ -31,19 +31,22 @@ class _EventEditScreenState extends State<EventEditScreen> {
 
     return BaseView(
       onModelReady: (context, args) {
+        args = args as EventModel;
         _eventProvider.setCreateSelectedDate(
-          DateTime.parse(widget.eventModel.date!),
+          DateTime.parse(args.date!),
         );
-        name_controller.text = widget.eventModel.name ?? "";
-        time_controller.text = widget.eventModel.time ?? "";
-        description_controller.text = widget.eventModel.description ?? "";
-        adress_controller.text = widget.eventModel.adress ?? "";
+        name_controller.text = args.name ?? "";
+        time_controller.text = args.time ?? "";
+        description_controller.text = args.description ?? "";
+        adress_controller.text = args.adress ?? "";
       },
       onDispose: () {
         _eventProvider.eventCreateClearDispose();
       },
       onPageBuilder: (context, args) {
-        return _EventEditView(eventModel: widget.eventModel);
+        args = args as EventModel;
+
+        return _EventEditView(eventModel: args);
       },
     );
   }
@@ -116,7 +119,9 @@ class __EventEditViewState extends State<_EventEditView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         InkWell(
-                          onTap: () async => _showDatePicker(),
+                          onTap: () async => _showDatePicker(
+                            DateTime.parse(widget.eventModel.date!),
+                          ),
                           child: Container(
                             decoration: BoxDecoration(
                               border: Border.all(
@@ -201,13 +206,10 @@ class __EventEditViewState extends State<_EventEditView> {
                       eventModel: widget.eventModel,
                     );
                     if (_eventModel != null) {
-                      Navigator.pushReplacement<void, void>(
+                      Navigator.pushReplacementNamed(
                         context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => EventDetailScreen(
-                            eventModel: _eventModel,
-                          ),
-                        ),
+                        RouteNames.event_detail,
+                        arguments: _eventModel,
                       );
                     }
                   },
@@ -220,14 +222,13 @@ class __EventEditViewState extends State<_EventEditView> {
     );
   }
 
-  void _showDatePicker() async {
+  void _showDatePicker(DateTime initialDate) async {
     var _eventProvider = Provider.of<EventViewModel>(context, listen: false);
 
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(), //get today's date
-      firstDate: DateTime(
-          2000), //DateTime.now() - not to allow to choose before today.
+      initialDate: initialDate,
+      firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
     _eventProvider.setCreateSelectedDate(pickedDate);

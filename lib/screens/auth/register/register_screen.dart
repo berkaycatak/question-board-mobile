@@ -10,6 +10,7 @@ import 'package:question_board_mobile/core/base/base_view.dart';
 import 'package:question_board_mobile/screens/home/home_screen.dart';
 import 'package:question_board_mobile/services/request_services.dart';
 import 'package:question_board_mobile/style/text_styles.dart';
+import 'package:question_board_mobile/utils/routes/route_names.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 import 'package:validators/validators.dart';
 
@@ -116,11 +117,10 @@ class _RegisterScreenState extends BaseState<RegisterScreen> {
                             password_confirmation_controller.text,
                       );
                       if (statu) {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
-                          ),
-                          (Route<dynamic> route) => false,
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          RouteNames.home_screen,
+                          (route) => false,
                         );
                       }
                     }
@@ -129,12 +129,20 @@ class _RegisterScreenState extends BaseState<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 18),
-              const Center(
-                child: Text(
-                  "Zaten bir hesabınız var mı?",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
+              Center(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      RouteNames.login,
+                    );
+                  },
+                  child: const Text(
+                    "Zaten bir hesabınız var mı?",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               ),

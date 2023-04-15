@@ -132,6 +132,7 @@ class EventViewModel with ChangeNotifier {
     if (selectedDate != null) {
       eventCreateSelectedDate = selectedDate;
     }
+    notifyListeners();
   }
   // create
 

@@ -8,6 +8,7 @@ import 'package:question_board_mobile/models/EventModel.dart';
 import 'package:question_board_mobile/screens/events/detail/event_detail_screen.dart';
 import 'package:question_board_mobile/style/text_styles.dart';
 import 'package:question_board_mobile/utils/enums/screen_status.dart';
+import 'package:question_board_mobile/utils/routes/route_names.dart';
 import 'package:question_board_mobile/view_models/event/event_view_model.dart';
 import 'package:validators/validators.dart';
 
@@ -188,13 +189,10 @@ class __EventCreateViewState extends State<_EventCreateView> {
                       time: time_controller.text,
                     );
                     if (_eventModel != null) {
-                      Navigator.pushReplacement<void, void>(
+                      Navigator.pushReplacementNamed(
                         context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => EventDetailScreen(
-                            eventModel: _eventModel,
-                          ),
-                        ),
+                        RouteNames.event_detail,
+                        arguments: _eventModel,
                       );
                     }
                   },

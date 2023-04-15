@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:question_board_mobile/models/EventModel.dart';
 import 'package:question_board_mobile/screens/events/detail/event_detail_screen.dart';
+import 'package:question_board_mobile/utils/routes/route_names.dart';
 
 Widget eventWidget(BuildContext context, EventModel event) {
   return InkWell(
     onTap: () {
-      Navigator.push(
+      Navigator.pushNamed(
         context,
-        MaterialPageRoute(
-          builder: (context) => EventDetailScreen(
-            eventModel: event,
-          ),
-        ),
+        RouteNames.event_detail,
+        arguments: event,
       );
     },
     child: Column(
@@ -32,13 +30,10 @@ Widget eventWidget(BuildContext context, EventModel event) {
             Text("🗓 ${event.date}"),
             TextButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => EventDetailScreen(
-                      eventModel: event,
-                    ),
-                  ),
+                  RouteNames.event_detail,
+                  arguments: event,
                 );
               },
               child: const Text("Etkinliğe Git"),

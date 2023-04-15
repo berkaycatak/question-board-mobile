@@ -8,6 +8,7 @@ import 'package:question_board_mobile/screens/auth/login/login_screen.dart';
 import 'package:question_board_mobile/screens/auth/register/register_screen.dart';
 import 'package:question_board_mobile/screens/events/create/event_create_screen.dart';
 import 'package:question_board_mobile/style/text_styles.dart';
+import 'package:question_board_mobile/utils/routes/route_names.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -87,11 +88,9 @@ class _HomeWidgetState extends BaseState<_HomeWidget> {
                 foregroundColor: Colors.black, // This is what you need!
               ),
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
-                  ),
+                  RouteNames.login,
                 );
               },
               child: const Text("Giriş Yap"),
@@ -104,11 +103,9 @@ class _HomeWidgetState extends BaseState<_HomeWidget> {
                 backgroundColor: Colors.black, // This is what you need!
               ),
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const RegisterScreen(),
-                  ),
+                  RouteNames.register,
                 );
               },
               child: const Text("Kayıt Ol"),
@@ -127,11 +124,9 @@ class _HomeWidgetState extends BaseState<_HomeWidget> {
           backgroundColor: Colors.black, // This is what you need!
         ),
         onPressed: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(
-              builder: (context) => const EventCreateScreen(),
-            ),
+            RouteNames.event_create,
           );
         },
         child: const Text("Etkinlik Oluştur"),

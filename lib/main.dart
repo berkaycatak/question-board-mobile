@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:question_board_mobile/screens/auth/splash/splash_screen.dart';
-import 'package:question_board_mobile/screens/home/home_screen.dart';
+import 'package:question_board_mobile/utils/routes/route_list.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 import 'package:question_board_mobile/view_models/event/event_view_model.dart';
 
@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
       ),
       home: const SplashScreen(),
+      routes: RouteList.screenRoutes,
     );
   }
 }
