@@ -29,13 +29,13 @@ class _EventDetailScreenState extends BaseState<EventDetailScreen> {
     var _eventProvider = Provider.of<EventViewModel>(context);
 
     return BaseView(
-      onModelReady: () async {
+      onModelReady: (context, args) async {
         await _eventProvider.details(context, widget.eventModel);
       },
       onDispose: () {
         _eventProvider.eventDetailModel = null;
       },
-      onPageBuilder: (context) =>
+      onPageBuilder: (context, args) =>
           _eventProvider.screenStatus == ScreenStatus.LOADING &&
                   _eventProvider.eventDetailModel == null
               ? loadingWidget()

@@ -10,34 +10,35 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: AppColors.greyColorBottomSheet,
-              ),
-              child: Stack(children: const [
-                Positioned(
-                  bottom: 8.0,
-                  left: 4.0,
-                  child: Text(
-                    'Soru Tahtası',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: AppColors.greyColorBottomSheet,
+            ),
+            child: Stack(children: const [
+              Positioned(
+                bottom: 8.0,
+                left: 4.0,
+                child: Text(
+                  'Soru Tahtası',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
-              ]),
-            ),
-            ListTile(
-              leading: Icon(Icons.people_outline),
-              title: const Text('Etkinlikler'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const EventListScreen(),
-                ));
-              },
-            ),
-          ]),
+              ),
+            ]),
+          ),
+          ListTile(
+            leading: Icon(Icons.people_outline),
+            title: const Text('Etkinlikler'),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const EventListScreen(),
+              ));
+            },
+          ),
+        ],
+      ),
     );
   }
 }

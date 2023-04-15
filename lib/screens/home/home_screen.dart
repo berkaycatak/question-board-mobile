@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      onPageBuilder: (context) {
+      onPageBuilder: (context, args) {
         return const _HomeWidget();
       },
     );

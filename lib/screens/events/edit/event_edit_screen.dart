@@ -30,7 +30,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
     var _eventProvider = Provider.of<EventViewModel>(context);
 
     return BaseView(
-      onModelReady: () {
+      onModelReady: (context, args) {
         _eventProvider.setCreateSelectedDate(
           DateTime.parse(widget.eventModel.date!),
         );
@@ -42,7 +42,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
       onDispose: () {
         _eventProvider.eventCreateClearDispose();
       },
-      onPageBuilder: (context) {
+      onPageBuilder: (context, args) {
         return _EventEditView(eventModel: widget.eventModel);
       },
     );

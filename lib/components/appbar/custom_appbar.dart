@@ -10,7 +10,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
         super(key: key);
 
   @override
-  final Size preferredSize; // default is 56.0
+  final Size preferredSize;
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();

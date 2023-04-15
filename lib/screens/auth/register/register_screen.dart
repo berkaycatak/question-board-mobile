@@ -33,7 +33,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen> {
   Widget build(BuildContext context) {
     var _authProvider = Provider.of<AuthViewModel>(context);
     return BaseView(
-      onPageBuilder: (context) {
+      onPageBuilder: (context, args) {
         return SizedBox(
           height: deviceHeight / 1.4,
           child: Column(

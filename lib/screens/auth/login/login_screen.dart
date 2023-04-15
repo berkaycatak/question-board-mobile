@@ -26,7 +26,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
     var _authProvider = Provider.of<AuthViewModel>(context);
 
     return BaseView(
-      onPageBuilder: (context) {
+      onPageBuilder: (context, args) {
         return SizedBox(
           height: deviceHeight / 1.4,
           child: Column(
