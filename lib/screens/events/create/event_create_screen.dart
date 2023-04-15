@@ -210,9 +210,8 @@ class __EventCreateViewState extends State<_EventCreateView> {
 
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(), //get today's date
-      firstDate: DateTime(
-          2000), //DateTime.now() - not to allow to choose before today.
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
     _eventProvider.setCreateSelectedDate(pickedDate);

@@ -13,6 +13,7 @@ import 'package:question_board_mobile/utils/enums/screen_status.dart';
 import 'package:question_board_mobile/utils/routes/route_names.dart';
 import 'package:question_board_mobile/view_models/auth/auth_view_model.dart';
 import 'package:question_board_mobile/view_models/event/event_view_model.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:validators/validators.dart';
 
@@ -31,7 +32,9 @@ class _EventDetailScreenState extends BaseState<EventDetailScreen> {
     return BaseView(
       onModelReady: (context, args) async {
         args = args as EventModel;
-        await _eventProvider.details(context, args);
+        if (_eventProvider.eventDetailModel == null) {
+          await _eventProvider.details(context, args);
+        }
       },
       onDispose: () {
         _eventProvider.eventDetailModel = null;
@@ -89,6 +92,7 @@ class __EventDetailViewState extends BaseState<_EventDetailView> {
 
   Widget eventDetails(EventModel model) {
     var _authProvider = Provider.of<AuthViewModel>(context, listen: false);
+    var _eventProvider = Provider.of<EventViewModel>(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,19 +148,69 @@ class __EventDetailViewState extends BaseState<_EventDetailView> {
         const SizedBox(height: 10),
         if (_authProvider.peopleModel != null)
           if (model.createdUserId == _authProvider.peopleModel!.id)
-            SizedBox(
-              height: 40,
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black, // This is what you need!
+            Row(
+              children: [
+                Expanded(
+                  flex: 8,
+                  child: SizedBox(
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black, // This is what you need!
+                      ),
+                      onPressed: () async {
+                        Navigator.pushNamed(
+                          context,
+                          RouteNames.event_edit,
+                          arguments: model,
+                        );
+                      },
+                      child: const Text("Etkinliği Düzenle"),
+                    ),
+                  ),
                 ),
-                onPressed: () async {
-                  Navigator.pushNamed(context, RouteNames.event_edit,
-                      arguments: model);
-                },
-                child: const Text("Etkinliği Düzenle"),
-              ),
+                const SizedBox(width: 10),
+                Expanded(
+                  flex: 2,
+                  child: SizedBox(
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red, // This is what you need!
+                      ),
+                      onPressed: () async {
+                        var response = await QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.confirm,
+                          title: "Emin misiniz?",
+                          text:
+                              'Etkinliği sildiğinizde bu işlemi geri alamazsınız.',
+                          confirmBtnText: 'Sil',
+                          cancelBtnText: 'Vazgeç',
+                          confirmBtnColor: Colors.red,
+                          onConfirmBtnTap: _eventProvider.deleteScreenStatus ==
+                                  ScreenStatus.LOADING
+                              ? null
+                              : () async {
+                                  bool respose = await _eventProvider.delete(
+                                    context,
+                                    eventModel: model,
+                                  );
+                                  if (respose) {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      RouteNames.home_screen,
+                                      (route) => false,
+                                    );
+                                  }
+                                },
+                        );
+                      },
+                      child: const Text("Sil"),
+                    ),
+                  ),
+                ),
+              ],
             ),
       ],
     );

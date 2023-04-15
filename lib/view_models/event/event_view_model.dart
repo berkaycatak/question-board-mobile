@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:question_board_mobile/helpers/helpers.dart';
 import 'package:question_board_mobile/models/EventModel.dart';
-import 'package:question_board_mobile/models/PeopleModel.dart';
-import 'package:question_board_mobile/repositories/auth_repository.dart';
 import 'package:question_board_mobile/repositories/event_repository.dart';
-import 'package:question_board_mobile/screens/events/detail/event_detail_screen.dart';
 import 'package:question_board_mobile/utils/enums/screen_status.dart';
 
 class EventViewModel with ChangeNotifier {
   ScreenStatus screenStatus = ScreenStatus.SUCCESS;
+  ScreenStatus deleteScreenStatus = ScreenStatus.SUCCESS;
 
   List<EventModel>? coming_events;
   List<EventModel>? past_events;
@@ -69,6 +67,38 @@ class EventViewModel with ChangeNotifier {
     Future.microtask(() {
       notifyListeners();
     });
+  }
+
+  changeDeleteScreenStatus(ScreenStatus _deleteScreenStatus) {
+    deleteScreenStatus = _deleteScreenStatus;
+
+    Future.microtask(() {
+      notifyListeners();
+    });
+  }
+
+  Future<bool> delete(
+    BuildContext context, {
+    required EventModel eventModel,
+  }) async {
+    try {
+      changeDeleteScreenStatus(ScreenStatus.LOADING);
+
+      EventRepository eventRepository = EventRepository();
+      bool _response = await eventRepository.delete(
+        context: context,
+        eventModel: eventModel,
+      );
+
+      notifyListeners();
+      changeDeleteScreenStatus(ScreenStatus.SUCCESS);
+      return _response;
+    } catch (e) {
+      //changeScreenStatus(ScreenStatus.ERROR);
+      //error sistemi kurmaya vakit olmadığı için başarılı durumundan ilerlenecek.
+      changeDeleteScreenStatus(ScreenStatus.SUCCESS);
+      return false;
+    }
   }
 
   // create
@@ -175,6 +205,7 @@ class EventViewModel with ChangeNotifier {
         eventModel: eventModel,
       );
 
+      notifyListeners();
       changeScreenStatus(ScreenStatus.SUCCESS);
       return _eventModel;
     } catch (e) {
@@ -183,7 +214,5 @@ class EventViewModel with ChangeNotifier {
 
       changeScreenStatus(ScreenStatus.SUCCESS);
     }
-
-    notifyListeners();
   }
 }

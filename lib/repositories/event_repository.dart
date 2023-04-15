@@ -130,4 +130,29 @@ class EventRepository {
       return null;
     }
   }
+
+  Future<bool> delete({
+    required BuildContext context,
+    required EventModel eventModel,
+  }) async {
+    try {
+      Response? response = await _requestServices.sendRequest(
+        path: "event/delete/${eventModel.id}",
+        isToken: true,
+        payload: {},
+      );
+
+      dynamic responseJson = _requestServices.returnResponse(
+        response!,
+        context,
+      );
+
+      if (responseJson == null) return false;
+
+      return responseJson["status"] == 1 ? true : false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }
