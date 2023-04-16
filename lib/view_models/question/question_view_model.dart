@@ -56,4 +56,27 @@ class QuestionViewModel with ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<bool> answer(
+    BuildContext context, {
+    required QuestionModel questionModel,
+  }) async {
+    try {
+      changeScreenStatus(ScreenStatus.LOADING);
+
+      QuestionRepository questionRepository = QuestionRepository();
+      bool response = await questionRepository.answer(
+        context: context,
+        questionModel: questionModel,
+      );
+
+      notifyListeners();
+      changeScreenStatus(ScreenStatus.SUCCESS);
+      return response;
+    } catch (e) {
+      notifyListeners();
+      changeScreenStatus(ScreenStatus.SUCCESS);
+      return false;
+    }
+  }
 }

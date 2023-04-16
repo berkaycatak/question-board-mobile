@@ -46,4 +46,33 @@ class QuestionRepository {
       return null;
     }
   }
+
+  Future<bool> answer({
+    required BuildContext context,
+    required QuestionModel questionModel,
+  }) async {
+    try {
+      String _path =
+          "question/answered/${questionModel.eventId}/${questionModel.id}";
+
+      Response? response = await _requestServices.sendRequest(
+        path: _path,
+        isToken: true,
+        payload: {},
+      );
+
+      dynamic responseJson = _requestServices.returnResponse(
+        response!,
+        context,
+      );
+
+      if (responseJson == null) return false;
+
+      bool status = responseJson["status"] == 1 ? true : false;
+
+      return status;
+    } catch (e) {
+      return false;
+    }
+  }
 }
