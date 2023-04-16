@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:question_board_mobile/components/event/question/question_widget.dart';
+import 'package:question_board_mobile/components/question/question_widget.dart';
 import 'package:question_board_mobile/models/QuestionModel.dart';
 
 Widget questionListBuilder(

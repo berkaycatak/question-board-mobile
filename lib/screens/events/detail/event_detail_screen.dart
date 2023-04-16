@@ -3,7 +3,7 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:question_board_mobile/components/event/question/question_list_builder_widget.dart';
+import 'package:question_board_mobile/components/question/question_list_builder_widget.dart';
 import 'package:question_board_mobile/components/loading_widget.dart';
 import 'package:question_board_mobile/core/base/base_state.dart';
 import 'package:question_board_mobile/core/base/base_view.dart';
