@@ -47,6 +47,10 @@ class _EventDetailScreenState extends BaseState<EventDetailScreen> {
       onDispose: () {
         eventProvider.eventDetailModel = null;
       },
+      onWillPop: () {
+        Navigator.of(context).pop(eventProvider.eventDetailModel);
+        return Future.value(true);
+      },
       onPageBuilder: (context, args) {
         return eventProvider.screenStatus == ScreenStatus.LOADING ||
                 eventProvider.eventDetailModel == null

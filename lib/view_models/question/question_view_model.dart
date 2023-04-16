@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:question_board_mobile/models/EventModel.dart';
 import 'package:question_board_mobile/models/QuestionModel.dart';
+import 'package:question_board_mobile/models/VoteModel.dart';
 import 'package:question_board_mobile/repositories/question_repository.dart';
 import 'package:question_board_mobile/utils/enums/screen_status.dart';
 
@@ -77,6 +78,34 @@ class QuestionViewModel with ChangeNotifier {
       notifyListeners();
       changeScreenStatus(ScreenStatus.SUCCESS);
       return false;
+    }
+  }
+
+  Future<Vote?> vote(
+    BuildContext context, {
+    required QuestionModel questionModel,
+  }) async {
+    try {
+      changeScreenStatus(ScreenStatus.LOADING);
+
+      Map payload = {
+        "event_id": questionModel.eventId.toString(),
+      };
+
+      QuestionRepository questionRepository = QuestionRepository();
+      Vote? vote = await questionRepository.vote(
+        context: context,
+        questionModel: questionModel,
+        payload: payload,
+      );
+
+      notifyListeners();
+      changeScreenStatus(ScreenStatus.SUCCESS);
+      return vote;
+    } catch (e) {
+      notifyListeners();
+      changeScreenStatus(ScreenStatus.SUCCESS);
+      return null;
     }
   }
 }

@@ -15,7 +15,7 @@ Widget eventListBuilder(BuildContext context, List<EventModel>? events) {
       itemCount: events.length,
       itemBuilder: (context, index) {
         EventModel item = events[index];
-        return eventWidget(context, item);
+        return EventWidget(event: item);
       },
     );
   }

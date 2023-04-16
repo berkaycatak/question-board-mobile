@@ -1,3 +1,5 @@
+import 'package:validators/validators.dart';
+
 class Vote {
   int? id;
   int? eventId;
@@ -21,8 +23,14 @@ class Vote {
   Vote.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     eventId = json['event_id'];
-    questionId = json['question_id'];
-    userId = json['user_id'];
+    if (json['question_id'] != null) {
+      if (json['question_id'] is int) {
+        questionId = json['question_id'];
+      } else {
+        questionId = int.parse(json['question_id']);
+      }
+    }
+    userId = json['user_id'].toString();
     isAnonim = json['is_anonim'];
     actionType = json['action_type'];
     createdAt = json['created_at'];

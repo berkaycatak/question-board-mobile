@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
 import 'package:question_board_mobile/models/EventModel.dart';
 import 'package:question_board_mobile/models/QuestionModel.dart';
+import 'package:question_board_mobile/models/VoteModel.dart';
 import 'package:question_board_mobile/services/request_services.dart';
 
 class QuestionRepository {
@@ -17,16 +18,16 @@ class QuestionRepository {
   }) async {
     try {
       const storage = FlutterSecureStorage();
-      String? auth_token = await storage.read(key: "token");
-      String _path = "";
-      if (auth_token == null) {
-        _path = "question/anon_create/${eventModel.id}";
+      String? authToken = await storage.read(key: "token");
+      String path = "";
+      if (authToken == null) {
+        path = "question/anon_create/${eventModel.id}";
       } else {
-        _path = "question/create/${eventModel.id}";
+        path = "question/create/${eventModel.id}";
       }
 
       Response? response = await _requestServices.sendRequest(
-        path: _path,
+        path: path,
         isToken: true,
         payload: payload,
       );
@@ -38,9 +39,9 @@ class QuestionRepository {
 
       if (responseJson == null) return null;
 
-      QuestionModel _questionModel;
-      _questionModel = QuestionModel.fromJson(responseJson["question"]);
-      return _questionModel;
+      QuestionModel questionModel;
+      questionModel = QuestionModel.fromJson(responseJson["question"]);
+      return questionModel;
     } catch (e) {
       print(e);
       return null;
@@ -52,11 +53,11 @@ class QuestionRepository {
     required QuestionModel questionModel,
   }) async {
     try {
-      String _path =
+      String path =
           "question/answered/${questionModel.eventId}/${questionModel.id}";
 
       Response? response = await _requestServices.sendRequest(
-        path: _path,
+        path: path,
         isToken: true,
         payload: {},
       );
@@ -73,6 +74,43 @@ class QuestionRepository {
       return status;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<Vote?> vote({
+    required BuildContext context,
+    required QuestionModel questionModel,
+    required Map payload,
+  }) async {
+    try {
+      const storage = FlutterSecureStorage();
+      String? authToken = await storage.read(key: "token");
+      String path = "";
+
+      if (authToken == null) {
+        path = "question/anon_vote/${questionModel.id}";
+      } else {
+        path = "question/vote/${questionModel.id}";
+      }
+
+      Response? response = await _requestServices.sendRequest(
+        path: path,
+        isToken: true,
+        payload: {},
+      );
+
+      dynamic responseJson = _requestServices.returnResponse(
+        response!,
+        context,
+      );
+
+      if (responseJson == null) return null;
+
+      Vote vote = Vote.fromJson(responseJson["vote"]);
+
+      return vote;
+    } catch (e) {
+      return null;
     }
   }
 }

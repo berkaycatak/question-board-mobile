@@ -8,6 +8,7 @@ import 'package:question_board_mobile/core/base/base_state.dart';
 class BaseView<T> extends StatefulWidget {
   final Widget Function(BuildContext context, dynamic args)? onPageBuilder;
   final Function(BuildContext context, dynamic args)? onModelReady;
+  final Future<bool> Function()? onWillPop;
   final VoidCallback? onDispose;
   final FloatingActionButton? floatingActionButton;
   const BaseView({
@@ -16,6 +17,7 @@ class BaseView<T> extends StatefulWidget {
     this.onModelReady,
     this.onDispose,
     this.floatingActionButton,
+    this.onWillPop,
   }) : super(key: key);
 
   @override
@@ -61,18 +63,27 @@ class _BaseViewState extends BaseState<BaseView> {
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: const CustomAppBar(),
-        drawer: const CustomDrawer(),
-        floatingActionButton: widget.floatingActionButton,
-        body: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(13.0),
-              child: widget.onPageBuilder!(context, args),
-            ),
-          ],
+      child: WillPopScope(
+        onWillPop: () {
+          if (widget.onWillPop != null) {
+            return widget.onWillPop!();
+          } else {
+            return Future.value(true);
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: const CustomAppBar(),
+          drawer: const CustomDrawer(),
+          floatingActionButton: widget.floatingActionButton,
+          body: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(13.0),
+                child: widget.onPageBuilder!(context, args),
+              ),
+            ],
+          ),
         ),
       ),
     );
