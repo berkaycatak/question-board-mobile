@@ -29,7 +29,10 @@ class _EventListScreenState extends BaseState<EventListScreen> {
           _eventProvider.screenStatus == ScreenStatus.LOADING &&
                   (_eventProvider.coming_events == null &&
                       _eventProvider.past_events == null)
-              ? loadingWidget()
+              ? SizedBox(
+                  height: deviceHeight / 1.4,
+                  child: loadingWidget(),
+                )
               : const _EventListView(),
     );
   }

@@ -31,7 +31,7 @@ class _CustomAppBarState extends BaseState<CustomAppBar> {
       foregroundColor: Colors.black,
       backgroundColor: Colors.white,
       title: SizedBox(
-        width: 140,
+        height: 25,
         child: Image.asset("assets/app/logos/logo.png"),
       ),
       actions: [

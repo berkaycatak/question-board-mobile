@@ -50,6 +50,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
                   children: [
                     TextFormField(
                       controller: email_controller,
+                      keyboardType: TextInputType.emailAddress,
                       validator: (val) =>
                           !isEmail(val!) ? "E-Posta formatı geçersiz." : null,
                       decoration: const InputDecoration(

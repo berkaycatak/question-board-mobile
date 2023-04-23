@@ -54,7 +54,10 @@ class _EventDetailScreenState extends BaseState<EventDetailScreen> {
       onPageBuilder: (context, args) {
         return eventProvider.screenStatus == ScreenStatus.LOADING ||
                 eventProvider.eventDetailModel == null
-            ? loadingWidget()
+            ? SizedBox(
+                height: deviceHeight / 1.4,
+                child: loadingWidget(),
+              )
             : const _EventDetailView();
       },
     );

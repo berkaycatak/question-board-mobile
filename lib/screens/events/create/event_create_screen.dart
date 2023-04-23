@@ -109,12 +109,13 @@ class __EventCreateViewState extends State<_EventCreateView> {
                           child: Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                  color: Colors.black.withOpacity(.4)),
+                                color: Colors.black.withOpacity(.4),
+                              ),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             padding: const EdgeInsets.only(left: 10),
                             alignment: Alignment.centerLeft,
-                            height: 60,
+                            height: 58.9,
                             child: Text(
                               _eventProvider.eventCreateSelectedDate != null
                                   ? _eventProvider.eventCreateSelectedDate
